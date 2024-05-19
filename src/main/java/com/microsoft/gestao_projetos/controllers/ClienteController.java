@@ -1,5 +1,7 @@
 package com.microsoft.gestao_projetos.controllers;
 
+import com.microsoft.gestao_projetos.DTO.ClienteDTO;
+import com.microsoft.gestao_projetos.DTO.response.ClienteResponse;
 import com.microsoft.gestao_projetos.models.Cliente;
 import com.microsoft.gestao_projetos.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public Cliente createCliente(@RequestBody Cliente cliente) {
+    public ClienteResponse createCliente(@RequestBody ClienteDTO cliente) {
         return clienteService.save(cliente);
     }
-
 }

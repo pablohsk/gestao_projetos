@@ -1,5 +1,7 @@
 package com.microsoft.gestao_projetos.controllers;
 
+import com.microsoft.gestao_projetos.DTO.ProjetoDTO;
+import com.microsoft.gestao_projetos.DTO.response.ProjetoResponse;
 import com.microsoft.gestao_projetos.models.Projeto;
 import com.microsoft.gestao_projetos.service.ProjetoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,7 @@ public class ProjetoController {
     }
 
     @PostMapping
-    public Projeto createProjeto(@RequestBody Projeto projeto) {
+    public ProjetoResponse createProjeto(@RequestBody ProjetoDTO projeto) {
         return projetoService.save(projeto);
     }
-
 }

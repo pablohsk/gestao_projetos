@@ -45,4 +45,13 @@ public class Atividade {
     public void setProjeto(Projeto projeto) {
         this.projeto = projeto;
     }
+
+    @Override
+    public String toString() {
+        return "Atividade{" +
+                "id=" + id +
+                ", descricao='" + descricao + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

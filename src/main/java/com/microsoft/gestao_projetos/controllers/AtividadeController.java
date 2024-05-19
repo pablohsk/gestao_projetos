@@ -1,5 +1,7 @@
 package com.microsoft.gestao_projetos.controllers;
 
+import com.microsoft.gestao_projetos.DTO.AtividadeDTO;
+import com.microsoft.gestao_projetos.DTO.response.AtividadeResponse;
 import com.microsoft.gestao_projetos.models.Atividade;
 import com.microsoft.gestao_projetos.service.AtividadeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,7 @@ public class AtividadeController {
     }
 
     @PostMapping
-    public Atividade createAtividade(@RequestBody Atividade atividade) {
+    public AtividadeResponse createAtividade(@RequestBody AtividadeDTO atividade) {
         return atividadeService.save(atividade);
     }
-
 }

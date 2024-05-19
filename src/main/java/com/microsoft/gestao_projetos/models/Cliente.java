@@ -37,4 +37,12 @@ public class Cliente {
     public void setProjetos(Set<Projeto> projetos) {
         this.projetos = projetos;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                '}';
+    }
 }
