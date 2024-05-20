@@ -2,7 +2,6 @@ package com.microsoft.gestao_projetos.service;
 
 import com.microsoft.gestao_projetos.DTO.AtividadeDTO;
 import com.microsoft.gestao_projetos.DTO.response.AtividadeResponse;
-import com.microsoft.gestao_projetos.enumeration.StatusAtividade;
 import com.microsoft.gestao_projetos.exceptions.ResourceNotFoundException;
 import com.microsoft.gestao_projetos.models.Atividade;
 import com.microsoft.gestao_projetos.models.Projeto;
