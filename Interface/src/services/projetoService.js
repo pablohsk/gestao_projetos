@@ -1,18 +1,15 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:8080/projetos'
+const API_URL = 'http://localhost:3000/projetos'
 
 export default {
-  async getAllProjetos() {
-    return axios.get(BASE_URL)
+  getAllProjetos() {
+    return axios.get(API_URL)
   },
-  async createProjeto(projeto) {
-    return axios.post(BASE_URL, projeto)
+  createProjeto(projeto) {
+    return axios.post(API_URL, projeto)
   },
-  async updateProjeto(id, projeto) {
-    return axios.put(`${BASE_URL}/${id}`, projeto)
-  },
-  async deleteProjeto(id) {
-    return axios.delete(`${BASE_URL}/${id}`)
+  deleteProjeto(id) {
+    return axios.delete(`${API_URL}/${id}`)
   }
 }

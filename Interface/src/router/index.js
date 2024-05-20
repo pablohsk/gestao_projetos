@@ -1,49 +1,35 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import AtividadeList from '@/components/AtividadeList'
-import AtividadeForm from '@/components/AtividadeForm'
-import ClienteList from '@/components/ClienteList'
-import ClienteForm from '@/components/ClienteForm'
-import ProjetoList from '@/components/ProjetoList'
-import ProjetoForm from '@/components/ProjetoForm'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from '@/views/HomeView.vue';
+import Cliente from '@/views/ClienteView.vue';
+import ProjetoView from "@/views/ProjetoView.vue";
+import Atividade from '@/views/AtividadeView.vue';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
-      redirect: '/atividades'
-    },
-    {
-      path: '/atividades',
-      name: 'AtividadeList',
-      component: AtividadeList
-    },
-    {
-      path: '/atividades/novo',
-      name: 'NovaAtividade',
-      component: AtividadeForm
+      name: 'home',
+      component: Home
     },
     {
       path: '/clientes',
-      name: 'ClienteList',
-      component: ClienteList
-    },
-    {
-      path: '/clientes/novo',
-      name: 'NovoCliente',
-      component: ClienteForm
+      name: 'clientes',
+      component: Cliente
     },
     {
       path: '/projetos',
-      name: 'ProjetoList',
-      component: ProjetoList
+      name: 'projetos',
+      component: ProjetoView
     },
     {
-      path: '/projetos/novo',
-      name: 'NovoProjeto',
-      component: ProjetoForm
+      path: '/atividades',
+      name: 'atividades',
+      component: Atividade
     }
   ]
-})
+});
