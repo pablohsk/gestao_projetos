@@ -1,5 +1,8 @@
 package com.microsoft.gestao_projetos.models;
+
+import com.microsoft.gestao_projetos.enumeration.StatusAtividade;
 import jakarta.persistence.*;
+
 
 @Entity
 public class Atividade {
@@ -8,7 +11,9 @@ public class Atividade {
     private Long id;
 
     private String descricao;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private StatusAtividade status;
 
     @ManyToOne
     @JoinColumn(name = "projeto_id")
@@ -30,11 +35,11 @@ public class Atividade {
         this.descricao = descricao;
     }
 
-    public String getStatus() {
+    public StatusAtividade getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusAtividade status) {
         this.status = status;
     }
 
@@ -44,14 +49,5 @@ public class Atividade {
 
     public void setProjeto(Projeto projeto) {
         this.projeto = projeto;
-    }
-
-    @Override
-    public String toString() {
-        return "Atividade{" +
-                "id=" + id +
-                ", descricao='" + descricao + '\'' +
-                ", status='" + status + '\'' +
-                '}';
     }
 }
