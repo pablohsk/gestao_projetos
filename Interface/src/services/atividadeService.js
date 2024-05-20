@@ -6,9 +6,11 @@ export default {
   getAllAtividades() {
     return axios.get(API_URL)
   },
+
   createAtividade(atividade) {
     return axios.post(API_URL, atividade)
   },
+
   deleteAtividade(id) {
     return axios.delete(`${API_URL}/${id}`)
   }

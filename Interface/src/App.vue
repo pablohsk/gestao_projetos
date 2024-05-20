@@ -15,7 +15,8 @@
 <script>
 export default {
   name: 'App'
-};
+}
+
 </script>
 
 <style>
@@ -47,14 +48,6 @@ body {
 
 .container {
   padding: 2rem;
-}
-
-.card {
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-  margin-bottom: 2rem;
 }
 
 h1 {
