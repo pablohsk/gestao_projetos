@@ -1,8 +1,13 @@
 package com.microsoft.gestao_projetos.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 public class Cliente {
     @Id
@@ -36,13 +41,5 @@ public class Cliente {
 
     public void setProjetos(Set<Projeto> projetos) {
         this.projetos = projetos;
-    }
-
-    @Override
-    public String toString() {
-        return "Cliente{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                '}';
     }
 }
