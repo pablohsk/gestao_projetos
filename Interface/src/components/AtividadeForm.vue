@@ -22,6 +22,7 @@
 import atividadeService from '@/services/atividadeService'
 
 export default {
+
   data() {
     return {
       descricao: '',
@@ -29,6 +30,7 @@ export default {
       idProjeto: null
     }
   },
+
   methods: {
     async handleSubmit() {
       try {

@@ -17,6 +17,7 @@ export default {
   props: {
     atividades: Array
   },
+
   methods: {
     async deleteAtividade(id) {
       try {

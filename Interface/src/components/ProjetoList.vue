@@ -17,6 +17,7 @@ export default {
   props: {
     projetos: Array
   },
+
   methods: {
     async deleteProjeto(id) {
       try {

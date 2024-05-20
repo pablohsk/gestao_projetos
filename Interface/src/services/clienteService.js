@@ -6,9 +6,11 @@ export default {
   getAllClientes() {
     return axios.get(API_URL)
   },
+
   createCliente(cliente) {
     return axios.post(API_URL, cliente)
   },
+
   deleteCliente(id) {
     return axios.delete(`${API_URL}/${id}`)
   }
