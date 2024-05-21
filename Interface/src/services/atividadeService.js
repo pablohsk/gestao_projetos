@@ -11,12 +11,14 @@ export default {
             headers: {
                 'Content-Type': 'application/json'
             }
-        })
-            .then(response => response.data)
-            .catch(error => {
-                console.error('Erro ao criar atividade no serviço:', error);
-                throw error;
-            });
+        });
+    },
+    updateAtividade(id, atividade) {
+        return axios.put(`${API_URL}/${id}`, atividade, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
     },
     deleteAtividade(id) {
         return axios.delete(`${API_URL}/${id}`);

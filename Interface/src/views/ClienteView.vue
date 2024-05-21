@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <h1>Clientes</h1>
-    <cliente-form @cliente-saved="fetchClientes" />
-    <cliente-list :clientes="clientes" @cliente-deleted="fetchClientes" />
+    <cliente-form :cliente="clienteParaEditar" @cliente-saved="fetchClientes" />
+    <cliente-list :clientes="clientes" @cliente-deleted="fetchClientes" @edit-cliente="clienteParaEditar = $event" />
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import ClienteList from '@/components/ClienteList.vue';
 import clienteService from '@/services/clienteService';
 
 export default {
-  name: 'Cliente',
+  name: 'ClienteView',
   components: {
     ClienteForm,
     ClienteList,
@@ -20,6 +20,7 @@ export default {
   data() {
     return {
       clientes: [],
+      clienteParaEditar: null
     };
   },
   created() {
@@ -30,6 +31,7 @@ export default {
       try {
         const response = await clienteService.getAllClientes();
         this.clientes = response.data;
+        this.clienteParaEditar = null;
       } catch (error) {
         console.error('Erro ao buscar clientes:', error);
       }
@@ -39,4 +41,11 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  padding: 2rem;
+  background-color: white;
+  margin-top: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 </style>

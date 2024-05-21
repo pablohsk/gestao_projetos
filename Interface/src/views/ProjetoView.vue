@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <h1>Projetos</h1>
-    <projeto-form @projeto-saved="fetchProjetos" />
-    <projeto-list :projetos="projetos" @projeto-deleted="fetchProjetos" @fetch-atividades="fetchAtividadesByProjeto" />
+    <projeto-form :projeto="projetoParaEditar" @projeto-saved="fetchProjetos" />
+    <projeto-list :projetos="projetos" @projeto-deleted="fetchProjetos" @edit-projeto="projetoParaEditar = $event" />
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import ProjetoList from '@/components/ProjetoList.vue';
 import projetoService from '@/services/projetoService';
 
 export default {
-  name: 'Projeto',
+  name: 'ProjetoView',
   components: {
     ProjetoForm,
     ProjetoList,
@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       projetos: [],
-      atividades: [],
+      projetoParaEditar: null
     };
   },
   created() {
@@ -31,16 +31,9 @@ export default {
       try {
         const response = await projetoService.getAllProjetos();
         this.projetos = response.data;
+        this.projetoParaEditar = null;
       } catch (error) {
         console.error('Erro ao buscar projetos:', error);
-      }
-    },
-    async fetchAtividadesByProjeto(projetoId) {
-      try {
-        const response = await projetoService.getAtividadesByProjeto(projetoId);
-        this.atividades = response.data;
-      } catch (error) {
-        console.error('Erro ao buscar atividades do projeto:', error);
       }
     },
   },
@@ -48,8 +41,11 @@ export default {
 </script>
 
 <style scoped>
-/* Estilo para ajustar o tamanho do campo "Status" no formulário de projetos */
-.projeto-form input[name="status"] {
-  width: 100%; /* Define o tamanho do campo como 100% */
+.container {
+  padding: 2rem;
+  background-color: white;
+  margin-top: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 </style>

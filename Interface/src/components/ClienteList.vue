@@ -13,6 +13,7 @@
         <td>{{ cliente.nome }}</td>
         <td class="text-right">
           <button class="btn btn-danger" @click="deleteCliente(cliente.id)">Deletar</button>
+          <button class="btn btn-secondary" @click="editCliente(cliente)">Editar</button>
         </td>
       </tr>
       </tbody>
@@ -35,6 +36,9 @@ export default {
       } catch (error) {
         console.error('Erro ao deletar cliente:', error);
       }
+    },
+    editCliente(cliente) {
+      this.$emit('edit-cliente', cliente);
     }
   }
 };

@@ -1,23 +1,24 @@
 <template>
   <div class="mb-4">
-    <form @submit.prevent="handleSubmit">
+    <h2>{{ isEdit ? 'Editar Atividade' : 'Criar Atividade' }}</h2>
+    <form @submit.prevent="submitForm">
       <div class="form-group">
-        <label for="descricao">Descrição:</label>
-        <input type="text" v-model="descricao" class="form-control" required>
+        <label for="descricao">Descrição</label>
+        <input type="text" id="descricao" class="form-control" v-model="form.descricao" required>
       </div>
       <div class="form-group">
-        <label for="status">Status:</label>
-        <select v-model="status" class="form-control" required>
+        <label for="status">Status</label>
+        <select id="status" class="form-control" v-model="form.status" required>
           <option value="PENDENTE">Pendente</option>
           <option value="EM_PROGRESSO">Em Progresso</option>
           <option value="CONCLUIDA">Concluída</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="projeto_id">ID Projeto:</label>
-        <input type="number" v-model="projeto_id" class="form-control" required>
+        <label for="projeto_id">Projeto ID</label>
+        <input type="number" id="projeto_id" class="form-control" v-model="form.projeto_id" required>
       </div>
-      <button type="submit" class="btn btn-primary">Salvar</button>
+      <button type="submit" class="btn btn-primary">{{ isEdit ? 'Atualizar' : 'Salvar' }}</button>
     </form>
   </div>
 </template>
@@ -26,36 +27,62 @@
 import atividadeService from '@/services/atividadeService';
 
 export default {
+  props: {
+    atividade: Object
+  },
   data() {
     return {
-      descricao: '',
-      status: 'PENDENTE', // Definir o status inicial como 'Pendente'
-      projeto_id: null
+      form: {
+        id: null,
+        descricao: '',
+        status: 'PENDENTE', // Definindo um valor padrão para status
+        projeto_id: null
+      },
+      isEdit: false
+    };
+  },
+  watch: {
+    atividade: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal) {
+          this.form = { ...newVal };
+          this.isEdit = true;
+        } else {
+          this.resetForm();
+          this.isEdit = false;
+        }
+      }
     }
   },
   methods: {
-    async handleSubmit() {
+    resetForm() {
+      this.form = {
+        id: null,
+        descricao: '',
+        status: 'PENDENTE',
+        projeto_id: null
+      };
+    },
+    async submitForm() {
       try {
-        if (this.descricao && this.status && this.projeto_id !== null) {
-          await atividadeService.createAtividade({
-            descricao: this.descricao,
-            status: this.status, // Passar o status selecionado corretamente
-            projeto_id: this.projeto_id
-          });
-          console.log('Atividade criada com sucesso');
-          this.descricao = ''; // Resetar o campo de descrição após a criação bem-sucedida
-          this.status = 'PENDENTE'; // Resetar o campo de status para 'Pendente' após a criação bem-sucedida
-          this.projeto_id = null; // Resetar o campo de idProjeto após a criação bem-sucedida
-          this.$emit('atividade-saved');
+        if (this.isEdit) {
+          await atividadeService.updateAtividade(this.form.id, this.form);
         } else {
-          console.error('Erro ao criar atividade: campos obrigatórios não preenchidos');
+          await atividadeService.createAtividade(this.form);
         }
+        this.$emit('atividade-saved');
+        this.resetForm();
       } catch (error) {
+        console.error('Erro ao salvar a atividade:', error);
       }
     }
   }
-}
+};
 </script>
 
 <style scoped>
+.form-group {
+  margin-bottom: 1rem;
+}
 </style>

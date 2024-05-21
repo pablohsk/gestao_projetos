@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <h1>Atividades</h1>
-    <atividade-form @atividade-saved="fetchAtividades" />
-    <atividade-list :atividades="atividades" @atividade-deleted="fetchAtividades" />
+    <atividade-form :atividade="atividadeParaEditar" @atividade-saved="fetchAtividades" />
+    <atividade-list :atividades="atividades" @atividade-deleted="fetchAtividades" @edit-atividade="setAtividadeParaEditar" />
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import AtividadeList from '@/components/AtividadeList.vue';
 import atividadeService from '@/services/atividadeService';
 
 export default {
-  name: 'Atividade',
+  name: 'AtividadeView',
   components: {
     AtividadeForm,
     AtividadeList,
@@ -20,6 +20,7 @@ export default {
   data() {
     return {
       atividades: [],
+      atividadeParaEditar: null
     };
   },
   created() {
@@ -30,17 +31,24 @@ export default {
       try {
         const response = await atividadeService.getAllAtividades();
         this.atividades = response.data;
+        this.atividadeParaEditar = null;
       } catch (error) {
         console.error('Erro ao buscar atividades:', error);
       }
     },
-  },
+    setAtividadeParaEditar(atividade) {
+      this.atividadeParaEditar = atividade;
+    }
+  }
 };
 </script>
 
 <style scoped>
-/* Estilo para ajustar o tamanho do campo "Status" no formulário de atividades */
-.atividade-form input[name="status"] {
-  width: 100%; /* Define o tamanho do campo como 100% */
+.container {
+  padding: 2rem;
+  background-color: white;
+  margin-top: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 </style>

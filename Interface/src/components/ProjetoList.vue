@@ -7,24 +7,36 @@
         <th>Nome</th>
         <th>Status</th>
         <th>Cliente</th>
-        <th>Atividades</th>
         <th>Ações</th>
       </tr>
       </thead>
       <tbody>
-      <tr v-for="projeto in projetos" :key="projeto.id">
+      <tr v-for="(projeto, index) in projetos" :key="projeto.id">
         <td>{{ projeto.nome }}</td>
         <td>{{ projeto.status }}</td>
-        <td>{{ projeto.clienteId }}</td>
-        <td>
-          <ul>
-            <li v-for="atividade in projeto.atividades" :key="atividade.id">
-              {{ atividade.descricao }} - {{ atividade.status }}
-            </li>
-          </ul>
-        </td>
+        <td>{{ projeto.cliente_id }}</td>
         <td>
           <button class="btn btn-danger" @click="deleteProjeto(projeto.id)">Deletar</button>
+          <button class="btn btn-secondary" @click="editProjeto(projeto)">Editar</button>
+          <button class="btn btn-secondary" @click="toggleAtividades(index)">Atividades</button>
+        </td>
+      </tr>
+      <tr v-if="showAtividadesIndex !== null">
+        <td colspan="4">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="atividade in projetos[showAtividadesIndex].atividades" :key="atividade.id">
+              <td>{{ atividade.descricao }}</td>
+              <td>{{ atividade.status }}</td>
+            </tr>
+            </tbody>
+          </table>
         </td>
       </tr>
       </tbody>
@@ -39,6 +51,11 @@ export default {
   props: {
     projetos: Array
   },
+  data() {
+    return {
+      showAtividadesIndex: null
+    };
+  },
   methods: {
     async deleteProjeto(id) {
       try {
@@ -47,6 +64,12 @@ export default {
       } catch (error) {
         console.error('Erro ao deletar projeto:', error);
       }
+    },
+    editProjeto(projeto) {
+      this.$emit('edit-projeto', projeto);
+    },
+    toggleAtividades(index) {
+      this.showAtividadesIndex = this.showAtividadesIndex === index ? null : index;
     }
   }
 };
@@ -72,18 +95,5 @@ export default {
 
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: #e9ecef;
-}
-
-.table td ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.table td ul li {
-  background-color: #ffffff;
-  margin: 5px 0;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 </style>

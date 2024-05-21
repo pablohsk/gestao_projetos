@@ -15,6 +15,13 @@ export default {
                 throw error;
             });
     },
+    updateCliente(id, cliente) {
+        return axios.put(`${API_URL}/${id}`, cliente, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    },
 
     deleteCliente(id) {
         return axios.delete(`${API_URL}/${id}`);

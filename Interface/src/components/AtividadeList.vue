@@ -14,9 +14,10 @@
       <tr v-for="atividade in atividades" :key="atividade.id">
         <td>{{ atividade.descricao }}</td>
         <td>{{ atividade.status }}</td>
-        <td>{{ atividade.projetoId }}</td>
+        <td>{{ atividade.projeto_id }}</td>
         <td>
           <button class="btn btn-danger" @click="deleteAtividade(atividade.id)">Deletar</button>
+          <button class="btn btn-secondary" @click="editAtividade(atividade)">Editar</button>
         </td>
       </tr>
       </tbody>
@@ -39,6 +40,9 @@ export default {
       } catch (error) {
         console.error('Erro ao deletar atividade:', error);
       }
+    },
+    editAtividade(atividade) {
+      this.$emit('edit-atividade', atividade);
     }
   }
 };
