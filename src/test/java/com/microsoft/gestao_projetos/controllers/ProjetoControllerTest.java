@@ -33,7 +33,7 @@ public class ProjetoControllerTest {
         projeto.setNome("Projeto Teste");
         when(projetoService.findAll()).thenReturn(Collections.singletonList(projeto));
 
-        List<Projeto> result = projetoController.getAllProjetos();
+        List<ProjetoResponse> result = projetoController.getAllProjetos();
 
         assertEquals(1, result.size());
         verify(projetoService, times(1)).findAll();
@@ -41,8 +41,8 @@ public class ProjetoControllerTest {
 
     @Test
     void testCreateProjeto() {
-        ProjetoDTO projetoDTO = new ProjetoDTO("Projeto Teste", "PENDENTE", 1L);
-        ProjetoResponse projetoResponse = new ProjetoResponse(1L, "Projeto Teste", "PENDENTE", 1L, "Cliente Teste");
+        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "Projeto Teste", "PENDENTE", 1L);
+        ProjetoResponse projetoResponse = new ProjetoResponse(1L, "Projeto Teste", "PENDENTE", 1L);
         when(projetoService.save(projetoDTO)).thenReturn(projetoResponse);
 
         ResponseEntity<ProjetoResponse> result = projetoController.createProjeto(projetoDTO);
@@ -55,8 +55,8 @@ public class ProjetoControllerTest {
     @Test
     void testUpdateProjeto() {
         Long id = 1L;
-        ProjetoDTO projetoDTO = new ProjetoDTO("Projeto Atualizado", "EM_PROGRESSO", 1L);
-        ProjetoResponse projetoResponse = new ProjetoResponse(1L, "Projeto Atualizado", "EM_PROGRESSO", 1L, "Cliente Teste");
+        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "Projeto Atualizado", "EM_PROGRESSO", 1L);
+        ProjetoResponse projetoResponse = new ProjetoResponse( 1L, "Projeto Atualizado", "EM_PROGRESSO", 1L);
         when(projetoService.update(id, projetoDTO)).thenReturn(projetoResponse);
 
         ResponseEntity<ProjetoResponse> result = projetoController.updateProjeto(id, projetoDTO);

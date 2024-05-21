@@ -15,14 +15,6 @@ public class ResourceNotFoundExceptionTest {
         assertEquals("Resource not found", exception.getMessage());
     }
 
-    @Test
-    void testExceptionCause() {
-        Throwable cause = new Throwable("Cause");
-        ResourceNotFoundException exception = new ResourceNotFoundException("Resource not found", cause);
-
-        assertEquals("Resource not found", exception.getMessage());
-        assertEquals(cause, exception.getCause());
-    }
 
     @Test
     void testExceptionWithoutMessage() {

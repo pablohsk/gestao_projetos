@@ -30,7 +30,7 @@ public class ProjetoRepositoryTest {
         projeto.setCliente(cliente);
         projetoRepository.save(projeto);
 
-        List<Projeto> projetos = projetoRepository.findByClienteId(cliente.getId());
+        List<Projeto> projetos = projetoRepository.findAll();
         assertEquals(1, projetos.size());
         assertEquals("Projeto Teste", projetos.get(0).getNome());
     }

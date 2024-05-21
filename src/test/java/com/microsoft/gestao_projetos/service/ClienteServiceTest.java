@@ -74,7 +74,7 @@ public class ClienteServiceTest {
         when(clienteRepository.findById(anyLong())).thenReturn(Optional.of(cliente));
         when(clienteRepository.save(any(Cliente.class))).thenReturn(cliente);
 
-        ClienteResponse response = clienteService.update(1L, clienteDTO);
+        ClienteResponse response = clienteService.update(1L, clienteDTO).getBody();
         assertEquals(1L, response.id());
         assertEquals("Cliente Teste", response.nome());
     }

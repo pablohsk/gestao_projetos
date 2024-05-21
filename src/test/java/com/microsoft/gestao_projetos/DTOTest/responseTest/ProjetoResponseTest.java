@@ -9,12 +9,12 @@ public class ProjetoResponseTest {
 
     @Test
     void testProjetoResponse() {
-        ProjetoResponse response = new ProjetoResponse(1L, "Projeto Teste", "PENDENTE", 2L, "Cliente Teste");
+        ProjetoResponse response = new ProjetoResponse(1L, "Projeto Teste","PENDENTE",1L);
 
-        assertEquals(1L, response.id_projeto());
+        assertEquals(1L, response.cliente_id());
         assertEquals("Projeto Teste", response.nome());
         assertEquals("PENDENTE", response.status());
-        assertEquals(2L, response.id_cliente());
-        assertEquals("Cliente Teste", response.nome_cliente());
+        assertEquals(2L, response.cliente_id());
+        assertEquals("Cliente Teste", response.nome());
     }
 }

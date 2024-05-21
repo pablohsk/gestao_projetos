@@ -1,5 +1,6 @@
 package com.microsoft.gestao_projetos.models;
 
+import com.microsoft.gestao_projetos.enumeration.StatusProjeto;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,7 +12,7 @@ public class ProjetoTest {
         Projeto projeto = new Projeto();
         projeto.setId(1L);
         projeto.setNome("Projeto Teste");
-        projeto.setStatus("PENDENTE");
+        projeto.setStatus(StatusProjeto.valueOf("PENDENTE"));
         projeto.setCliente(new Cliente());
 
         assertEquals(1L, projeto.getId());

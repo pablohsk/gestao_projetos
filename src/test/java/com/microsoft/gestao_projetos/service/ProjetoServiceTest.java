@@ -2,6 +2,7 @@ package com.microsoft.gestao_projetos.service;
 
 import com.microsoft.gestao_projetos.DTO.ProjetoDTO;
 import com.microsoft.gestao_projetos.DTO.response.ProjetoResponse;
+import com.microsoft.gestao_projetos.enumeration.StatusProjeto;
 import com.microsoft.gestao_projetos.exceptions.ResourceNotFoundException;
 import com.microsoft.gestao_projetos.models.Cliente;
 import com.microsoft.gestao_projetos.models.Projeto;
@@ -54,24 +55,24 @@ public class ProjetoServiceTest {
         Cliente cliente = new Cliente();
         cliente.setId(1L);
 
-        ProjetoDTO projetoDTO = new ProjetoDTO("Projeto Teste", "PENDENTE", 1L);
+        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "Projeto Teste", "PENDENTE", 1L);
         Projeto projeto = new Projeto();
         projeto.setId(1L);
         projeto.setNome("Projeto Teste");
-        projeto.setStatus("PENDENTE");
+        projeto.setStatus(StatusProjeto.valueOf("PENDENTE"));
         projeto.setCliente(cliente);
 
         when(clienteRepository.findById(anyLong())).thenReturn(Optional.of(cliente));
         when(projetoRepository.save(any(Projeto.class))).thenReturn(projeto);
 
         ProjetoResponse response = projetoService.save(projetoDTO);
-        assertEquals(1L, response.id_projeto());
+        assertEquals(1L, response.cliente_id());
         assertEquals("Projeto Teste", response.nome());
     }
 
     @Test
     void testSaveThrowsException() {
-        ProjetoDTO projetoDTO = new ProjetoDTO("", "PENDENTE", null);
+        ProjetoDTO projetoDTO = new ProjetoDTO(1L,"", "PENDENTE", null);
         assertThrows(IllegalArgumentException.class, () -> projetoService.save(projetoDTO));
     }
 
@@ -80,11 +81,11 @@ public class ProjetoServiceTest {
         Cliente cliente = new Cliente();
         cliente.setId(1L);
 
-        ProjetoDTO projetoDTO = new ProjetoDTO("Projeto Teste", "PENDENTE", 1L);
+        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "Projeto Teste", "PENDENTE", 1L);
         Projeto projeto = new Projeto();
         projeto.setId(1L);
         projeto.setNome("Projeto Teste");
-        projeto.setStatus("PENDENTE");
+        projeto.setStatus(StatusProjeto.valueOf("PENDENTE"));
         projeto.setCliente(cliente);
 
         when(projetoRepository.findById(anyLong())).thenReturn(Optional.of(projeto));
@@ -92,13 +93,13 @@ public class ProjetoServiceTest {
         when(projetoRepository.save(any(Projeto.class))).thenReturn(projeto);
 
         ProjetoResponse response = projetoService.update(1L, projetoDTO);
-        assertEquals(1L, response.id_projeto());
+        assertEquals(1L, response.cliente_id());
         assertEquals("Projeto Teste", response.nome());
     }
 
     @Test
     void testUpdateThrowsException() {
-        ProjetoDTO projetoDTO = new ProjetoDTO("", "PENDENTE", null);
+        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "", "PENDENTE", null);
         assertThrows(IllegalArgumentException.class, () -> projetoService.update(1L, projetoDTO));
     }
 

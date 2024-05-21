@@ -2,6 +2,7 @@ package com.microsoft.gestao_projetos.service;
 
 import com.microsoft.gestao_projetos.DTO.ProjetoDTO;
 import com.microsoft.gestao_projetos.DTO.response.ProjetoResponse;
+import com.microsoft.gestao_projetos.enumeration.StatusProjeto;
 import com.microsoft.gestao_projetos.exceptions.ResourceNotFoundException;
 import com.microsoft.gestao_projetos.models.Cliente;
 import com.microsoft.gestao_projetos.models.Projeto;
@@ -27,40 +28,36 @@ public class ProjetoService {
         return projetoRepository.findAll();
     }
 
-    public List<Projeto> findByClienteId(Long clienteId) {
-        return projetoRepository.findByClienteId(clienteId);
-    }
-
     public ProjetoResponse save(ProjetoDTO projeto) {
-        if (projeto.nome() == null || projeto.nome().isEmpty() || projeto.status() == null || projeto.id_client() == null) {
+        if (projeto.nome() == null || projeto.nome().isEmpty() || projeto.status() == null || projeto.cliente_id() == null) {
             throw new IllegalArgumentException("Erro, faltam argumentos para criação");
         }
         Projeto projetoModel = new Projeto();
         projetoModel.setNome(projeto.nome());
-        projetoModel.setStatus(projeto.status());
-        Cliente cliente = clienteRepository.findById(projeto.id_client()).orElseThrow(() -> new NoSuchElementException("Nenhum cliente foi encontrada no sistema com o ID: " + projeto.id_client() + " ."));
+        projetoModel.setStatus(StatusProjeto.valueOf(projeto.status())); // Converta a String para o enum StatusProjeto
+        Cliente cliente = clienteRepository.findById(projeto.cliente_id()).orElseThrow(() -> new NoSuchElementException("Nenhum cliente foi encontrado no sistema com o ID: " + projeto.cliente_id() + " ."));
         projetoModel.setCliente(cliente);
         Projeto projetoSalvo = projetoRepository.save(projetoModel);
-        return new ProjetoResponse(projetoSalvo.getId(), projetoSalvo.getNome(), projetoSalvo.getStatus(), projetoSalvo.getCliente().getId(), projetoSalvo.getCliente().getNome());
+        return new ProjetoResponse(projetoSalvo.getId(), projetoSalvo.getNome(), projetoSalvo.getStatus().toString(), projetoSalvo.getId());
     }
 
     public ProjetoResponse update(Long id, ProjetoDTO projeto) {
-        if (projeto.nome() == null || projeto.nome().isEmpty() || projeto.status() == null || projeto.id_client() == null) {
+        if (projeto.nome() == null || projeto.nome().isEmpty() || projeto.status() == null || projeto.cliente_id() == null) {
             throw new IllegalArgumentException("Erro, faltam argumentos para atualização");
         }
         Projeto existingProjeto = projetoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Projeto not found with id " + id));
 
-        Cliente cliente = clienteRepository.findById(projeto.id_client()).
-                orElseThrow(() -> new NoSuchElementException("Nenhum cliente foi encontrada no sistema com o ID: " + projeto.id_client() + " ."));
+        Cliente cliente = clienteRepository.findById(projeto.cliente_id()).
+                orElseThrow(() -> new NoSuchElementException("Nenhum cliente foi encontrado no sistema com o ID: " + projeto.cliente_id() + " ."));
 
         existingProjeto.setCliente(cliente);
         existingProjeto.setNome(projeto.nome());
-        existingProjeto.setStatus(projeto.status());
+        existingProjeto.setStatus(StatusProjeto.valueOf(projeto.status())); // Converta a String para o enum StatusProjeto
 
         Projeto projetoSalvo = projetoRepository.save(existingProjeto);
 
-        return new ProjetoResponse(projetoSalvo.getId(), projetoSalvo.getNome(), projetoSalvo.getStatus(), projetoSalvo.getCliente().getId(), projetoSalvo.getCliente().getNome());
+        return new ProjetoResponse(projetoSalvo.getId(), projetoSalvo.getNome(), projetoSalvo.getStatus().toString(), projetoSalvo.getId());
     }
 
     public ResponseEntity<String> delete(Long id) {

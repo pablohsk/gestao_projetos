@@ -1,6 +1,6 @@
 package com.microsoft.gestao_projetos.enumeration;
 
-public enum StatusAtividade {
+public enum StatusProjeto {
     PENDENTE,
     EM_PROGRESSO,
     CONCLUIDA

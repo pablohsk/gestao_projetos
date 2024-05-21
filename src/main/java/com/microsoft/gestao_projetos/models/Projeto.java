@@ -1,5 +1,6 @@
 package com.microsoft.gestao_projetos.models;
 
+import com.microsoft.gestao_projetos.enumeration.StatusProjeto;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -10,7 +11,9 @@ public class Projeto {
     private Long id;
 
     private String nome;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private StatusProjeto status;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -35,11 +38,11 @@ public class Projeto {
         this.nome = nome;
     }
 
-    public String getStatus() {
+    public StatusProjeto getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusProjeto status) {
         this.status = status;
     }
 

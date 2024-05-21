@@ -9,10 +9,10 @@ public class ProjetoDTOTest {
 
     @Test
     void testProjetoDTO() {
-        ProjetoDTO projetoDTO = new ProjetoDTO("Projeto Teste", "PENDENTE", 1L);
+        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "Projeto Teste", "PENDENTE", 1L);
 
         assertEquals("Projeto Teste", projetoDTO.nome());
         assertEquals("PENDENTE", projetoDTO.status());
-        assertEquals(1L, projetoDTO.id_client());
+        assertEquals(1L, projetoDTO.cliente_id());
     }
 }
