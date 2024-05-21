@@ -14,8 +14,8 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="id_projeto">ID Projeto:</label>
-        <input type="number" v-model="id_projeto" class="form-control" required>
+        <label for="projeto_id">ID Projeto:</label>
+        <input type="number" v-model="projeto_id" class="form-control" required>
       </div>
       <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
@@ -30,22 +30,22 @@ export default {
     return {
       descricao: '',
       status: 'PENDENTE', // Definir o status inicial como 'Pendente'
-      id_projeto: null
+      projeto_id: null
     }
   },
   methods: {
     async handleSubmit() {
       try {
-        if (this.descricao && this.status && this.id_projeto !== null) {
+        if (this.descricao && this.status && this.projeto_id !== null) {
           await atividadeService.createAtividade({
             descricao: this.descricao,
             status: this.status, // Passar o status selecionado corretamente
-            id_projeto: this.id_projeto
+            projeto_id: this.projeto_id
           });
           console.log('Atividade criada com sucesso');
           this.descricao = ''; // Resetar o campo de descrição após a criação bem-sucedida
           this.status = 'PENDENTE'; // Resetar o campo de status para 'Pendente' após a criação bem-sucedida
-          this.id_projeto = null; // Resetar o campo de idProjeto após a criação bem-sucedida
+          this.projeto_id = null; // Resetar o campo de idProjeto após a criação bem-sucedida
           this.$emit('atividade-saved');
         } else {
           console.error('Erro ao criar atividade: campos obrigatórios não preenchidos');

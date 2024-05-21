@@ -39,4 +39,8 @@ export default {
 </script>
 
 <style scoped>
+/* Estilo para ajustar o tamanho do campo "Status" no formulário de atividades */
+.atividade-form input[name="status"] {
+  width: 100%; /* Define o tamanho do campo como 100% */
+}
 </style>

@@ -48,5 +48,8 @@ export default {
 </script>
 
 <style scoped>
-/* Adicione qualquer estilo necessário aqui */
+/* Estilo para ajustar o tamanho do campo "Status" no formulário de projetos */
+.projeto-form input[name="status"] {
+  width: 100%; /* Define o tamanho do campo como 100% */
+}
 </style>

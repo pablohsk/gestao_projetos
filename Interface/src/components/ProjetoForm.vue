@@ -14,8 +14,8 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="id_cliente">ID Cliente:</label>
-        <input type="number" v-model="id_cliente" class="form-control" required>
+        <label for="cliente_id">ID Cliente:</label>
+        <input type="number" v-model="cliente_id" class="form-control" required>
       </div>
       <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
@@ -30,22 +30,22 @@ export default {
     return {
       nome: '',
       status: 'PENDENTE', // Definir o status inicial como 'Pendente'
-      id_cliente: null
+      cliente_id: null
     }
   },
   methods: {
     async handleSubmit() {
       try {
-        if (this.nome && this.status && this.id_cliente !== null) {
+        if (this.nome && this.status && this.cliente_id !== null) {
           await projetoService.createProjeto({
             nome: this.nome,
             status: this.status, // Passar o status selecionado corretamente
-            id_cliente: this.id_cliente
+            cliente_id: this.cliente_id
           });
           console.log('Projeto criado com sucesso');
           this.nome = ''; // Resetar o campo de nome após a criação bem-sucedida
           this.status = 'PENDENTE'; // Resetar o campo de status para 'Pendente' após a criação bem-sucedida
-          this.id_cliente = null; // Resetar o campo de idCliente após a criação bem-sucedida
+          this.cliente_id = null; // Resetar o campo de idCliente após a criação bem-sucedida
           this.$emit('projeto-saved');
         } else {
           console.error('Erro ao criar projeto: campos obrigatórios não preenchidos');
