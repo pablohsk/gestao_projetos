@@ -87,7 +87,7 @@ body {
 }
 
 .footer {
-  background-color: rgba(46, 142, 239, 0.7); /* Azul do rodapé com transparência */
+  background-color: rgba(46, 142, 239, 0.7);
   color: #fff;
   padding: 1rem 0;
   width: 100%;
@@ -113,7 +113,7 @@ body {
 }
 
 .social-links img {
-  width: 40px; /* Aumenta o tamanho das imagens */
+  width: 40px;
   height: auto;
 }
 

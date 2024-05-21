@@ -35,7 +35,7 @@ export default {
       form: {
         id: null,
         descricao: '',
-        status: 'PENDENTE', // Definindo um valor padrão para status
+        status: 'PENDENTE',
         projeto_id: null
       },
       isEdit: false

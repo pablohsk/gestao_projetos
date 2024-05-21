@@ -94,21 +94,18 @@ export default {
       try {
         const id = this.projetoEdit.id;
         await projetoService.updateProjeto(id, this.projetoEdit);
-        // Emitir evento para recarregar a lista de projetos após a atualização
         this.$emit('projeto-updated');
-        $('#projetoModal').modal('hide'); // Fechar a modal após a atualização
       } catch (error) {
         console.error('Erro ao atualizar projeto:', error);
       }
     },
     openModal(projeto) {
-      this.projetoEdit = { ...projeto }; // Copiar os dados do projeto para o objeto de edição
-      $('#projetoModal').modal('show'); // Abrir a modal de edição
+      this.projetoEdit = { ...projeto };
+      $('#projetoModal').modal('show');
     }
   }
 };
 </script>
 
 <style scoped>
-/* Estilos específicos do componente */
 </style>
