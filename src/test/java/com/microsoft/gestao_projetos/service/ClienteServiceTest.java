@@ -46,7 +46,7 @@ public class ClienteServiceTest {
 
     @Test
     void testSave() {
-        ClienteDTO clienteDTO = new ClienteDTO("Cliente Teste");
+        ClienteDTO clienteDTO = new ClienteDTO(1L, "Cliente Teste");
         Cliente cliente = new Cliente();
         cliente.setId(1L);
         cliente.setNome("Cliente Teste");
@@ -60,13 +60,13 @@ public class ClienteServiceTest {
 
     @Test
     void testSaveThrowsException() {
-        ClienteDTO clienteDTO = new ClienteDTO("");
+        ClienteDTO clienteDTO = new ClienteDTO(1L, "");
         assertThrows(IllegalArgumentException.class, () -> clienteService.save(clienteDTO));
     }
 
     @Test
     void testUpdate() {
-        ClienteDTO clienteDTO = new ClienteDTO("Cliente Teste");
+        ClienteDTO clienteDTO = new ClienteDTO(1L,"Cliente Teste");
         Cliente cliente = new Cliente();
         cliente.setId(1L);
         cliente.setNome("Cliente Teste");
@@ -81,7 +81,7 @@ public class ClienteServiceTest {
 
     @Test
     void testUpdateThrowsException() {
-        ClienteDTO clienteDTO = new ClienteDTO("");
+        ClienteDTO clienteDTO = new ClienteDTO(1L, "");
         assertThrows(IllegalArgumentException.class, () -> clienteService.update(1L, clienteDTO));
     }
 

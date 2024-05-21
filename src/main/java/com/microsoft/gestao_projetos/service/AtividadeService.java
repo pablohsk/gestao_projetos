@@ -23,36 +23,37 @@ public class AtividadeService {
     private ProjetoRepository projetoRepository;
 
     public List<Atividade> findAll() {
+
         return atividadeRepository.findAll();
     }
 
     public AtividadeResponse save(AtividadeDTO atividadeDTO) {
-        if (atividadeDTO.descricao() == null || atividadeDTO.descricao().isEmpty() || atividadeDTO.id_projeto() == null) {
+        if (atividadeDTO.descricao() == null || atividadeDTO.descricao().isEmpty() || atividadeDTO.projeto_id() == null) {
             throw new IllegalArgumentException("Erro, faltam argumentos para criação");
         }
         Atividade atividade = new Atividade();
         atividade.setDescricao(atividadeDTO.descricao());
         atividade.setStatus(atividadeDTO.status());
-        Projeto projeto = projetoRepository.findById(atividadeDTO.id_projeto())
-                .orElseThrow(() -> new ResourceNotFoundException("Projeto not found with id " + atividadeDTO.id_projeto()));
+        Projeto projeto = projetoRepository.findById(atividadeDTO.projeto_id())
+                .orElseThrow(() -> new ResourceNotFoundException("Projeto not found with id " + atividadeDTO.projeto_id()));
         atividade.setProjeto(projeto);
         Atividade savedAtividade = atividadeRepository.save(atividade);
-        return new AtividadeResponse(savedAtividade.getId(), savedAtividade.getDescricao(), savedAtividade.getStatus().name(), savedAtividade.getProjeto().getId());
+        return new AtividadeResponse(savedAtividade.getId(), savedAtividade.getDescricao(), savedAtividade.getStatus().toString(), savedAtividade.getProjeto().getId());
     }
 
     public AtividadeResponse update(Long id, AtividadeDTO atividadeDTO) {
-        if (atividadeDTO.descricao() == null || atividadeDTO.descricao().isEmpty() || atividadeDTO.id_projeto() == null) {
+        if (atividadeDTO.descricao() == null || atividadeDTO.descricao().isEmpty() || atividadeDTO.projeto_id() == null) {
             throw new IllegalArgumentException("Erro, faltam argumentos para atualização");
         }
         Atividade atividade = atividadeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Atividade not found with id " + id));
         atividade.setDescricao(atividadeDTO.descricao());
         atividade.setStatus(atividadeDTO.status());
-        Projeto projeto = projetoRepository.findById(atividadeDTO.id_projeto())
-                .orElseThrow(() -> new ResourceNotFoundException("Projeto not found with id " + atividadeDTO.id_projeto()));
+        Projeto projeto = projetoRepository.findById(atividadeDTO.projeto_id())
+                .orElseThrow(() -> new ResourceNotFoundException("Projeto not found with id " + atividadeDTO.projeto_id()));
         atividade.setProjeto(projeto);
         Atividade updatedAtividade = atividadeRepository.save(atividade);
-        return new AtividadeResponse(updatedAtividade.getId(), updatedAtividade.getDescricao(), updatedAtividade.getStatus().name(), updatedAtividade.getProjeto().getId());
+        return new AtividadeResponse(updatedAtividade.getId(), updatedAtividade.getDescricao(), updatedAtividade.getStatus().toString(), updatedAtividade.getProjeto().getId());
     }
 
     public ResponseEntity<String> delete(Long id) {

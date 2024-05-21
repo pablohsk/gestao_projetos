@@ -9,7 +9,7 @@ public class ClienteDTOTest {
 
     @Test
     void testClienteDTO() {
-        ClienteDTO clienteDTO = new ClienteDTO("Cliente Teste");
+        ClienteDTO clienteDTO = new ClienteDTO(1L, "Cliente Teste");
 
         assertEquals("Cliente Teste", clienteDTO.nome());
     }

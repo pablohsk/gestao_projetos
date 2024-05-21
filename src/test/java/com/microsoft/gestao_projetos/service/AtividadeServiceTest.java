@@ -55,7 +55,7 @@ public class AtividadeServiceTest {
         Projeto projeto = new Projeto();
         projeto.setId(1L);
 
-        AtividadeDTO atividadeDTO = new AtividadeDTO("Descricao Teste", StatusAtividade.PENDENTE, 1L);
+        AtividadeDTO atividadeDTO = new AtividadeDTO(1L,"Descricao Teste", StatusAtividade.PENDENTE, 1L);
         Atividade atividade = new Atividade();
         atividade.setId(1L);
         atividade.setDescricao("Descricao Teste");
@@ -72,7 +72,7 @@ public class AtividadeServiceTest {
 
     @Test
     void testSaveThrowsException() {
-        AtividadeDTO atividadeDTO = new AtividadeDTO("", StatusAtividade.PENDENTE, null);
+        AtividadeDTO atividadeDTO = new AtividadeDTO(1L,"", StatusAtividade.PENDENTE, null);
         assertThrows(IllegalArgumentException.class, () -> atividadeService.save(atividadeDTO));
     }
 
@@ -81,7 +81,7 @@ public class AtividadeServiceTest {
         Projeto projeto = new Projeto();
         projeto.setId(1L);
 
-        AtividadeDTO atividadeDTO = new AtividadeDTO("Descricao Teste", StatusAtividade.PENDENTE, 1L);
+        AtividadeDTO atividadeDTO = new AtividadeDTO(1L,"Descricao Teste", StatusAtividade.PENDENTE, 1L);
         Atividade atividade = new Atividade();
         atividade.setId(1L);
         atividade.setDescricao("Descricao Teste");
@@ -99,7 +99,7 @@ public class AtividadeServiceTest {
 
     @Test
     void testUpdateThrowsException() {
-        AtividadeDTO atividadeDTO = new AtividadeDTO("", StatusAtividade.PENDENTE, null);
+        AtividadeDTO atividadeDTO = new AtividadeDTO(1L,"", StatusAtividade.PENDENTE, null);
         assertThrows(IllegalArgumentException.class, () -> atividadeService.update(1L, atividadeDTO));
     }
 

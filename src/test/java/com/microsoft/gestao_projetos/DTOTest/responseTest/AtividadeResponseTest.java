@@ -14,6 +14,6 @@ public class AtividadeResponseTest {
         assertEquals(1L, response.id());
         assertEquals("Descricao Teste", response.descricao());
         assertEquals("PENDENTE", response.status());
-        assertEquals(2L, response.id_projeto());
+        assertEquals(2L, response.projeto_id());
     }
 }

@@ -9,9 +9,9 @@ public class AtividadeDTOTest {
 
     @Test
     void testAtividadeDTO() {
-        AtividadeDTO atividadeDTO = new AtividadeDTO("Descricao Teste", null, 1L);
+        AtividadeDTO atividadeDTO = new AtividadeDTO(1L, "Descricao Teste", null, 1L);
 
         assertEquals("Descricao Teste", atividadeDTO.descricao());
-        assertEquals(1L, atividadeDTO.id_projeto());
+        assertEquals(1L, atividadeDTO.projeto_id());
     }
 }

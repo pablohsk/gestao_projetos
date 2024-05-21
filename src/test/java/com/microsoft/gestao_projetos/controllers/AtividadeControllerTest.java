@@ -31,7 +31,7 @@ public class AtividadeControllerTest {
         Atividade atividade = new Atividade();
         when(atividadeService.findAll()).thenReturn(Collections.singletonList(atividade));
 
-        List<Atividade> result = atividadeController.getAllAtividades();
+        List<AtividadeResponse> result = atividadeController.getAllAtividades();
 
         assertEquals(1, result.size());
         verify(atividadeService, times(1)).findAll();
@@ -39,7 +39,7 @@ public class AtividadeControllerTest {
 
     @Test
     void testCreateAtividade() {
-        AtividadeDTO atividadeDTO = new AtividadeDTO("descricao", null, 1L);
+        AtividadeDTO atividadeDTO = new AtividadeDTO(1L,"descricao", null, 1L);
         AtividadeResponse response = new AtividadeResponse(1L, "descricao", "PENDENTE", 1L);
         when(atividadeService.save(atividadeDTO)).thenReturn(response);
 
@@ -53,7 +53,7 @@ public class AtividadeControllerTest {
     @Test
     void testUpdateAtividade() {
         Long id = 1L;
-        AtividadeDTO atividadeDTO = new AtividadeDTO("descricao", null, 1L);
+        AtividadeDTO atividadeDTO = new AtividadeDTO(1L,"descricao", null, 1L);
         AtividadeResponse response = new AtividadeResponse(1L, "descricao", "PENDENTE", 1L);
         when(atividadeService.update(id, atividadeDTO)).thenReturn(response);
 

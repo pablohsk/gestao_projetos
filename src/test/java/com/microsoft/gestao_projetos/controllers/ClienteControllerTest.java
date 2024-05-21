@@ -43,7 +43,7 @@ public class ClienteControllerTest {
 
     @Test
     void testCreateCliente() {
-        ClienteDTO clienteDTO = new ClienteDTO("Cliente Teste");
+        ClienteDTO clienteDTO = new ClienteDTO(1L, "Cliente Teste");
         ClienteResponse clienteResponse = new ClienteResponse(1L, "Cliente Teste");
         when(clienteService.save(clienteDTO)).thenReturn(ResponseEntity.ok(clienteResponse));
 
@@ -57,7 +57,7 @@ public class ClienteControllerTest {
     @Test
     void testUpdateCliente() {
         Long id = 1L;
-        ClienteDTO clienteDTO = new ClienteDTO("Cliente Atualizado");
+        ClienteDTO clienteDTO = new ClienteDTO(1L, "Cliente Atualizado");
         ClienteResponse clienteResponse = new ClienteResponse(id, "Cliente Atualizado");
         when(clienteService.update(id, clienteDTO)).thenReturn(ResponseEntity.ok(clienteResponse));
 
