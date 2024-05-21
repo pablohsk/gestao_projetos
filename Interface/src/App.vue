@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <nav class="navbar">
-      <router-link to="/">Home</router-link>
-      <router-link to="/clientes">Clientes</router-link>
-      <router-link to="/projetos">Projetos</router-link>
-      <router-link to="/atividades">Atividades</router-link>
+      <a @click="goTo('/')">Home</a>
+      <a @click="goTo('/clientes')">Clientes</a>
+      <a @click="goTo('/projetos')">Projetos</a>
+      <a @click="goTo('/atividades')">Atividades</a>
     </nav>
     <div class="container">
       <router-view />
@@ -14,12 +14,17 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  methods: {
+    goTo(route) {
+      this.$router.push(route);
+    }
+  }
 }
-
 </script>
 
 <style>
+
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f0f4f8;
@@ -28,7 +33,7 @@ body {
 }
 
 .navbar {
-  background-color: #004d99;
+  background-color: #2e8eef;
   padding: 1rem;
   display: flex;
   justify-content: space-around;
@@ -43,7 +48,7 @@ body {
 }
 
 .navbar a:hover {
-  background-color: #003366;
+  background-color: #7c96a8;
 }
 
 .container {
@@ -51,13 +56,13 @@ body {
 }
 
 h1 {
-  color: #004d99;
+  color: #89a1b6;
   font-size: 2rem;
   margin-bottom: 1rem;
 }
 
 p {
-  color: #333;
+  color: #8390d6;
   font-size: 1rem;
 }
 </style>

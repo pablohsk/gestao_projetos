@@ -1,42 +1,52 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Projetos</h1>
-    <projeto-form @projeto-saved="fetchProjetos"/>
-    <projeto-list :projetos="projetos" @projeto-deleted="fetchProjetos"/>
+    <projeto-form @projeto-saved="fetchProjetos" />
+    <projeto-list :projetos="projetos" @projeto-deleted="fetchProjetos" @fetch-atividades="fetchAtividadesByProjeto" />
   </div>
 </template>
 
 <script>
-import ProjetoForm from '@/components/ProjetoForm'
-import ProjetoList from '@/components/ProjetoList'
-import projetoService from '@/services/projetoService'
+import ProjetoForm from '@/components/ProjetoForm.vue';
+import ProjetoList from '@/components/ProjetoList.vue';
+import projetoService from '@/services/projetoService';
 
 export default {
   name: 'Projeto',
   components: {
     ProjetoForm,
-    ProjetoList
+    ProjetoList,
   },
   data() {
     return {
-      projetos: []
-    }
+      projetos: [],
+      atividades: [],
+    };
   },
   created() {
-    this.fetchProjetos()
+    this.fetchProjetos();
   },
   methods: {
     async fetchProjetos() {
       try {
-        const response = await projetoService.getAllProjetos()
-        this.projetos = response.data
+        const response = await projetoService.getAllProjetos();
+        this.projetos = response.data;
       } catch (error) {
-        console.error('Erro ao buscar projetos:', error)
+        console.error('Erro ao buscar projetos:', error);
       }
-    }
-  }
-}
+    },
+    async fetchAtividadesByProjeto(projetoId) {
+      try {
+        const response = await projetoService.getAtividadesByProjeto(projetoId);
+        this.atividades = response.data;
+      } catch (error) {
+        console.error('Erro ao buscar atividades do projeto:', error);
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>
+/* Adicione qualquer estilo necessário aqui */
 </style>

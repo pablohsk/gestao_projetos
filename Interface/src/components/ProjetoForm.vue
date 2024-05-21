@@ -6,8 +6,16 @@
         <input type="text" v-model="nome" class="form-control" required>
       </div>
       <div class="form-group">
-        <label for="idCliente">ID Cliente:</label>
-        <input type="number" v-model="idCliente" class="form-control" required>
+        <label for="status">Status:</label>
+        <select v-model="status" class="form-control" required>
+          <option value="PENDENTE">Pendente</option>
+          <option value="EM_PROGRESSO">Em Progresso</option>
+          <option value="CONCLUIDO">Concluído</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="id_cliente">ID Cliente:</label>
+        <input type="number" v-model="id_cliente" class="form-control" required>
       </div>
       <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
@@ -15,28 +23,34 @@
 </template>
 
 <script>
-import projetoService from '@/services/projetoService'
+import projetoService from '@/services/projetoService';
 
 export default {
   data() {
     return {
       nome: '',
-      idCliente: null
+      status: 'PENDENTE', // Definir o status inicial como 'Pendente'
+      id_cliente: null
     }
   },
-
   methods: {
     async handleSubmit() {
       try {
-        await projetoService.createProjeto({
-          nome: this.nome,
-          idCliente: this.idCliente
-        })
-        this.nome = ''
-        this.idCliente = null
-        this.$emit('projeto-saved')
+        if (this.nome && this.status && this.id_cliente !== null) {
+          await projetoService.createProjeto({
+            nome: this.nome,
+            status: this.status, // Passar o status selecionado corretamente
+            id_cliente: this.id_cliente
+          });
+          console.log('Projeto criado com sucesso');
+          this.nome = ''; // Resetar o campo de nome após a criação bem-sucedida
+          this.status = 'PENDENTE'; // Resetar o campo de status para 'Pendente' após a criação bem-sucedida
+          this.id_cliente = null; // Resetar o campo de idCliente após a criação bem-sucedida
+          this.$emit('projeto-saved');
+        } else {
+          console.error('Erro ao criar projeto: campos obrigatórios não preenchidos');
+        }
       } catch (error) {
-        console.error('Erro ao criar projeto:', error)
       }
     }
   }

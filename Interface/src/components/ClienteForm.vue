@@ -23,11 +23,16 @@ export default {
   methods: {
     async handleSubmit() {
       try {
-        await clienteService.createCliente({ nome: this.nome })
-        this.nome = ''
-        this.$emit('cliente-saved')
+        if (this.nome !== undefined && this.nome !== '') {
+          await clienteService.createCliente({nome: this.nome});
+          console.log('Cliente criado com sucesso');
+          this.nome = ''; // Resetar o campo de nome após a criação bem-sucedida
+          console.log('Nome após reset:', this.nome); // Log para verificar o valor de nome após reset
+          this.$emit('cliente-saved');
+        } else {
+          console.error('Erro ao criar cliente');
+        }
       } catch (error) {
-        console.error('Erro ao criar cliente:', error)
       }
     }
   }
