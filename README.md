@@ -241,6 +241,149 @@ Excluir projeto por ID`
 URL: /projeto/{id}
 Descrição: Remove um projeto do banco de dados com o ID fornecido.`
 
+## Diagrama de Classes
+
+    class Projeto {
+        +Long id
+        +String nome
+        +String descricao
+        +StatusProjeto status
+        +LocalDate dataInicio
+        +LocalDate dataFim
+    }
+
+    class Atividade {
+        +Long id
+        +String nome
+        +String descricao
+        +StatusAtividade status
+        +LocalDate dataInicio
+        +LocalDate dataFim
+        +Projeto projeto
+    }
+
+    class Cliente {
+        +Long id
+        +String nome
+        +String email
+    }
+
+    class ProjetoDTO {
+        +Long id
+        +String nome
+        +String descricao
+        +StatusProjeto status
+        +LocalDate dataInicio
+        +LocalDate dataFim
+    }
+
+    class AtividadeDTO {
+        +Long id
+        +String nome
+        +String descricao
+        +StatusAtividade status
+        +LocalDate dataInicio
+        +LocalDate dataFim
+        +Long projetoId
+    }
+
+    class ClienteDTO {
+        +Long id
+        +String nome
+        +String email
+    }
+
+    class ProjetoController {
+        +List~ProjetoDTO~ getAllProjetos()
+        +ProjetoDTO getProjeto(Long id)
+        +ProjetoDTO createProjeto(ProjetoDTO projetoDTO)
+        +ProjetoDTO updateProjeto(Long id, ProjetoDTO projetoDTO)
+        +void deleteProjeto(Long id)
+        +List~Projeto~ getProjetosAtivos()
+    }
+
+    class AtividadeController {
+        +List~AtividadeDTO~ getAllAtividades()
+        +AtividadeDTO getAtividade(Long id)
+        +AtividadeDTO createAtividade(AtividadeDTO atividadeDTO)
+        +AtividadeDTO updateAtividade(Long id, AtividadeDTO atividadeDTO)
+        +void deleteAtividade(Long id)
+    }
+
+    class ClienteController {
+        +List~ClienteDTO~ getAllClientes()
+        +ClienteDTO getCliente(Long id)
+        +ClienteDTO createCliente(ClienteDTO clienteDTO)
+        +ClienteDTO updateCliente(Long id, ClienteDTO clienteDTO)
+        +void deleteCliente(Long id)
+    }
+
+    class ProjetoService {
+        +List~Projeto~ findAll()
+        +Projeto findById(Long id)
+        +Projeto save(Projeto projeto)
+        +void deleteById(Long id)
+        +List~Projeto~ findByStatusNotConcluida()
+    }
+
+    class AtividadeService {
+        +List~Atividade~ findAll()
+        +Atividade findById(Long id)
+        +Atividade save(Atividade atividade)
+        +void deleteById(Long id)
+    }
+
+    class ClienteService {
+        +List~Cliente~ findAll()
+        +Cliente findById(Long id)
+        +Cliente save(Cliente cliente)
+        +void deleteById(Long id)
+    }
+
+    class ProjetoRepository {
+        +List~Projeto~ findAll()
+        +Optional~Projeto~ findById(Long id)
+        +Projeto save(Projeto projeto)
+        +void deleteById(Long id)
+        +List~Projeto~ findByStatusNot(StatusProjeto status)
+    }
+
+    class AtividadeRepository {
+        +List~Atividade~ findAll()
+        +Optional~Atividade~ findById(Long id)
+        +Atividade save(Atividade atividade)
+        +void deleteById(Long id)
+    }
+
+    class ClienteRepository {
+        +List~Cliente~ findAll()
+        +Optional~Cliente~ findById(Long id)
+        +Cliente save(Cliente cliente)
+        +void deleteById(Long id)
+    }
+
+    Projeto --> ProjetoDTO
+    Projeto --> Atividade : contém
+    Atividade --> AtividadeDTO
+    Cliente --> ClienteDTO
+
+    ProjetoController --> ProjetoService
+    AtividadeController --> AtividadeService
+    ClienteController --> ClienteService
+
+    ProjetoService --> ProjetoRepository
+    AtividadeService --> AtividadeRepository
+    ClienteService --> ClienteRepository
+
+    StatusProjeto : +CONCLUIDA
+    StatusProjeto : +EM_PROGRESSO
+    StatusProjeto : +PENDENTE
+
+    StatusAtividade : +CONCLUIDA
+    StatusAtividade : +EM_PROGRESSO
+    StatusAtividade : +PENDENTE
+
+
 ## Desenvolvedor
 
 Este projeto foi desenvolvido por Pablo Fidelis Dias. Para mais detalhes, consulte o link: [[link do repositório no GitHub]](https://github.com/pablohsk/gestao_projetos).
