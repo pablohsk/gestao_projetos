@@ -1,4 +1,5 @@
 package com.microsoft.gestao_projetos.DTO.response;
 
-public record ProjetoResponse(Long Id, String nome, String status, Long cliente_id) {
-}
+import java.util.List;
+
+public record ProjetoResponse(Long id, String nome, String status, Long cliente_id, List<AtividadeResponse> atividades) {}

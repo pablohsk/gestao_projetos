@@ -2,14 +2,12 @@ package com.microsoft.gestao_projetos.controllers;
 
 import com.microsoft.gestao_projetos.DTO.ProjetoDTO;
 import com.microsoft.gestao_projetos.DTO.response.ProjetoResponse;
-import com.microsoft.gestao_projetos.models.Projeto;
 import com.microsoft.gestao_projetos.service.ProjetoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/projetos")
@@ -21,15 +19,7 @@ public class ProjetoController {
 
     @GetMapping
     public List<ProjetoResponse> getAllProjetos() {
-        List<Projeto> projetos = projetoService.findAll();
-        return projetos.stream()
-                .map(projeto -> new ProjetoResponse(
-                        projeto.getId(),
-                        projeto.getNome(),
-                        projeto.getStatus().toString(),
-                        projeto.getCliente().getId()  // Verifica se o cliente é nulo antes de acessar o ID
-                ))
-                .collect(Collectors.toList());
+        return projetoService.getAllProjetosWithAtividades();
     }
 
     @PostMapping

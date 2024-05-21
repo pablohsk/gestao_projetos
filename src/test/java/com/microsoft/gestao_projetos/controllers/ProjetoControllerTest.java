@@ -41,8 +41,8 @@ public class ProjetoControllerTest {
 
     @Test
     void testCreateProjeto() {
-        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "Projeto Teste", "PENDENTE", 1L);
-        ProjetoResponse projetoResponse = new ProjetoResponse(1L, "Projeto Teste", "PENDENTE", 1L);
+        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "Projeto Teste", "PENDENTE", 1L, Collections.emptyList());
+        ProjetoResponse projetoResponse = new ProjetoResponse(1L, "Projeto Teste", "PENDENTE", 1L, Collections.emptyList());
         when(projetoService.save(projetoDTO)).thenReturn(projetoResponse);
 
         ResponseEntity<ProjetoResponse> result = projetoController.createProjeto(projetoDTO);
@@ -55,8 +55,8 @@ public class ProjetoControllerTest {
     @Test
     void testUpdateProjeto() {
         Long id = 1L;
-        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "Projeto Atualizado", "EM_PROGRESSO", 1L);
-        ProjetoResponse projetoResponse = new ProjetoResponse( 1L, "Projeto Atualizado", "EM_PROGRESSO", 1L);
+        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "Projeto Atualizado", "EM_PROGRESSO", 1L, Collections.emptyList());
+        ProjetoResponse projetoResponse = new ProjetoResponse(1L, "Projeto Atualizado", "EM_PROGRESSO", 1L, Collections.emptyList());
         when(projetoService.update(id, projetoDTO)).thenReturn(projetoResponse);
 
         ResponseEntity<ProjetoResponse> result = projetoController.updateProjeto(id, projetoDTO);

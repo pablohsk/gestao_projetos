@@ -55,7 +55,7 @@ public class ProjetoServiceTest {
         Cliente cliente = new Cliente();
         cliente.setId(1L);
 
-        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "Projeto Teste", "PENDENTE", 1L);
+        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "Projeto Teste", "PENDENTE", 1L,  Collections.emptyList());
         Projeto projeto = new Projeto();
         projeto.setId(1L);
         projeto.setNome("Projeto Teste");
@@ -72,7 +72,7 @@ public class ProjetoServiceTest {
 
     @Test
     void testSaveThrowsException() {
-        ProjetoDTO projetoDTO = new ProjetoDTO(1L,"", "PENDENTE", null);
+        ProjetoDTO projetoDTO = new ProjetoDTO(1L,"", "PENDENTE", null,  Collections.emptyList());
         assertThrows(IllegalArgumentException.class, () -> projetoService.save(projetoDTO));
     }
 
@@ -81,7 +81,7 @@ public class ProjetoServiceTest {
         Cliente cliente = new Cliente();
         cliente.setId(1L);
 
-        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "Projeto Teste", "PENDENTE", 1L);
+        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "Projeto Teste", "PENDENTE", 1L, Collections.emptyList());
         Projeto projeto = new Projeto();
         projeto.setId(1L);
         projeto.setNome("Projeto Teste");
@@ -99,7 +99,7 @@ public class ProjetoServiceTest {
 
     @Test
     void testUpdateThrowsException() {
-        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "", "PENDENTE", null);
+        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "", "PENDENTE", null, Collections.emptyList());
         assertThrows(IllegalArgumentException.class, () -> projetoService.update(1L, projetoDTO));
     }
 
